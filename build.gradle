@@ -1,0 +1,30 @@
+plugins {
+    id 'java'
+    id 'idea'
+    id 'application'
+}
+
+group 'org.cs474'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+test{
+    // to run JUnit 5 tests
+    useJUnitPlatform()
+}
+
+dependencies {
+    //JUnit 5 dependency
+    testImplementation('org.junit.jupiter:junit-jupiter:5.5.2')
+    //slf4j logger  was 1.7.25
+    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.+'
+    //logback   was 1.2.3
+    compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.+'
+    //configuration
+    compile group: 'com.typesafe', name: 'config', version: '1.4.0'
+}
