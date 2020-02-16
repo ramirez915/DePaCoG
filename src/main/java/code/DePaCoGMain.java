@@ -1,6 +1,8 @@
 package code;
 
 import consts.Constants;
+import designPatterns.AbstractFactory;
+import org.graalvm.compiler.core.common.type.ArithmeticOpTable;
 
 import java.util.Scanner;
 
@@ -19,24 +21,24 @@ public class DePaCoGMain {
             // first check if the desired design pattern is marked as not implemented in configuration
             try{
                 if(!Constants.verifyImplementation(desiredDesPat)){
-                    System.out.println("is not implemented");
+                    System.out.println("is not implemented\n");
                 }
                 else{
                     switch(desiredDesPat){
                         case "ABSTRACT FACTORY":
-
+                            AbstractFactory.createAbstractFactory();
                             break;
                         case "BUILDER":
                             
                             break;
                         // something unusual. This is when then design pattern is in the config file and true but not in the switch...
                         default:
-                            System.out.println("Something strange");
+                            System.out.println("Something strange\n");
                     }
                 }
             }catch(Exception e){
                 //log an error
-                System.out.println("INVALID DP");
+                System.out.println("INVALID DP\n\n");
             }
         }
     }
