@@ -1,7 +1,7 @@
 package designPatterns;
 
 //import consts.Constants;
-import consts.Constants2;
+import consts.Constants;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -19,16 +19,16 @@ public class AbstractFactory{
     public AbstractFactory(){
         Scanner input = new Scanner(System.in);
         this.designPatternType = "abstract factory";
-        Constants2.printInstructions("interface");
+        Constants.printInstructions("interface");
         this.mainInterfaceName = input.nextLine();
 
-        Constants2.printInstructions("function amount");
+        Constants.printInstructions("function amount");
         this.totalFuncs = Integer.parseInt(input.nextLine());
-        Constants2.printInstructions("amount of subclasses");
+        Constants.printInstructions("amount of subclasses");
         this.totalSubClasses = Integer.parseInt(input.nextLine());
 
         // make the directory
-        Constants2.createDir(this.mainInterfaceName);
+        Constants.createDir(this.mainInterfaceName);
 
         this.concreteClassList = new ArrayList<>();
         this.abstFactoryName = mainInterfaceName+"AbstractFactory";
@@ -39,15 +39,15 @@ public class AbstractFactory{
         // create interface for the product we are going to mass produce
         Container mainInterface = new Container("interface", mainInterfaceName, "",totalFuncs);
         mainInterface.setDirName(mainInterfaceName);
-        String mainInterfaceText = Constants2.createContainerStub(mainInterface);
+        String mainInterfaceText = Constants.createContainerStub(mainInterface);
 
         // adding the function stubs
         for(int i = 0; i < mainInterface.functionAmount; i++){
-            mainInterfaceText += Constants2.makeFuncStubs(false,"regular function gen") + i + "();\n";
+            mainInterfaceText += Constants.makeFuncStubs(false,"regular function gen") + i + "();\n";
         }
 
         // ready to create main interface file
-        Constants2.createFile(mainInterface,mainInterfaceText);
+        Constants.createFile(mainInterface,mainInterfaceText);
         //now create the subclasses
         createFactorySubclasses();
         //create factory interface
@@ -63,13 +63,13 @@ public class AbstractFactory{
         Scanner input = new Scanner(System.in);
         String name = "";
         for(int i = 0; i < totalSubClasses; i++){
-            Constants2.printInstructions("regular class");
+            Constants.printInstructions("regular class");
             name = input.nextLine();
             Container subClass = new Container("regular class",name,mainInterfaceName,totalFuncs);
             subClass.setImplement(true);
             subClass.setDirName(mainInterfaceName);
-            String subClassText = Constants2.createSubClass(subClass);
-            Constants2.createFile(subClass,subClassText);
+            String subClassText = Constants.createSubClass(subClass);
+            Constants.createFile(subClass,subClassText);
 
             // now add the new concrete class into the list
             concreteClassList.add(subClass);
@@ -84,9 +84,9 @@ public class AbstractFactory{
         factoryInterface.setDirName(mainInterfaceName);
 
         //now make the text for this interface
-        String factoryInterfaceText = Constants2.createContainerStub(factoryInterface);
-        factoryInterfaceText += Constants2.makeFuncStubs(false,"regular function") + mainInterfaceName + " " + abstFactoryMethodName + "();\n";
-        Constants2.createFile(factoryInterface,factoryInterfaceText);
+        String factoryInterfaceText = Constants.createContainerStub(factoryInterface);
+        factoryInterfaceText += Constants.makeFuncStubs(false,"regular function") + mainInterfaceName + " " + abstFactoryMethodName + "();\n";
+        Constants.createFile(factoryInterface,factoryInterfaceText);
     }
 
     /*
@@ -99,9 +99,9 @@ public class AbstractFactory{
             subClass.setImplement(true);
             subClass.setDirName(mainInterfaceName);
 
-            String subClassText = Constants2.createContainerStub(subClass);
-            subClassText += Constants2.makeFuncStubs(true,"regular function") + mainInterfaceName + " " + abstFactoryMethodName + "(){\n\t}\n";
-            Constants2.createFile(subClass,subClassText);
+            String subClassText = Constants.createContainerStub(subClass);
+            subClassText += Constants.makeFuncStubs(true,"regular function") + mainInterfaceName + " " + abstFactoryMethodName + "(){\n\t}\n";
+            Constants.createFile(subClass,subClassText);
         }
     }
 }

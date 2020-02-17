@@ -1,9 +1,8 @@
 package code;
 
 //import consts.Constants;
-import consts.Constants2;
+import consts.Constants;
 import designPatterns.AbstractFactory;
-import org.graalvm.compiler.core.common.type.ArithmeticOpTable;
 
 import java.util.Scanner;
 
@@ -21,7 +20,7 @@ public class DePaCoGMain {
             // main way that the program is going to work
             // first check if the desired design pattern is marked as not implemented in configuration
             try{
-                if(!Constants2.verifyImplementation(desiredDesPat)){
+                if(!Constants.verifyImplementation(desiredDesPat)){
                     System.out.println("is not implemented\n");
                 }
                 else{
