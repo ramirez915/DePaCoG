@@ -1,6 +1,7 @@
 package code;
 
-import consts.Constants;
+//import consts.Constants;
+import consts.Constants2;
 import designPatterns.AbstractFactory;
 import org.graalvm.compiler.core.common.type.ArithmeticOpTable;
 
@@ -20,13 +21,14 @@ public class DePaCoGMain {
             // main way that the program is going to work
             // first check if the desired design pattern is marked as not implemented in configuration
             try{
-                if(!Constants.verifyImplementation(desiredDesPat)){
+                if(!Constants2.verifyImplementation(desiredDesPat)){
                     System.out.println("is not implemented\n");
                 }
                 else{
                     switch(desiredDesPat){
                         case "ABSTRACT FACTORY":
-                            AbstractFactory.createAbstractFactory();
+//                            AbstractFactory.createAbstractFactory();
+                            new AbstractFactory().createAbstractFactory();
                             break;
                         case "BUILDER":
                             
