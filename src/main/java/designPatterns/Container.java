@@ -11,6 +11,7 @@ public class Container {
     public int functionAmount;
     public boolean implement;
     public boolean extend;
+    public String text;         // whats going into the file
 
     public Container(String type, String name, String partOf, int functionAmount){
         this.type = type;
@@ -20,6 +21,7 @@ public class Container {
         this.functionAmount = functionAmount;
         this.implement = false;
         this.extend = false;
+        this.text = "";
     }
 
     public void setDirName(String dirName) {

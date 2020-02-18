@@ -6,10 +6,36 @@ import designPatterns.Container;
 
 import java.io.File;
 import java.io.FileWriter;
-import java.util.Scanner;
 
 public class Constants {
     static Config consts = ConfigFactory.load("javaWay.conf");
+
+    // prompts to user
+    public static String AbstractClassPrompt = consts.getString("AbstractClassPrompt");
+    public static String RegularClassPrompt = consts.getString("RegularClassPrompt");
+    public static String AbstractFunctionAmountPrompt = consts.getString("AbstractFunctionAmountPrompt");
+    public static String FunctionAmountPrompt = consts.getString("FunctionAmountPrompt");
+    public static String AmountSubclassesPrompt = consts.getString("AmountSubclassesPrompt");
+    public static String InterfacePrompt = consts.getString("InterfacePrompt");
+
+    // signatures for the classes, functions, and interfaces
+    public static String AbstractClassSig = consts.getString("ABSTRACT CLASS");
+    public static String RegularClassSig = consts.getString("CLASS");
+    public static String PublicStatic = consts.getString("STATIC");
+
+    public static String AbstractFunctionGenericSig = consts.getString("ABSTRACT FUNCTION GEN");
+    public static String RegularFunctionGenericSig = consts.getString("REGULAR FUNCTION GEN");
+    public static String StaticFunctionGenericSig = consts.getString("STATIC FUNCTION GEN");
+    public static String InterfaceGenericSig = consts.getString("INTERFACE FUNCTION GEN");
+    public static String OverrideRegularFunctionGenericSig = consts.getString("OVERRIDE REGULAR FUNCTION GEN");
+    public static String FunctionWReturnAndNameSig = consts.getString("FUNCTION WITH RETURN AND NAME");
+    public static String InterfaceFuncWReturnAndNameSig = consts.getString("INTERFACE FUNCTION WITH RETURN AND NAME");
+
+    public static String InterfaceSig = consts.getString("INTERFACE");
+    public static String ClassImplementsSig = consts.getString("CLASS IMPLEMENTS");
+    public static String ClassExtendsSig = consts.getString("CLASS EXTENDS");
+    public static String ConstructorSig = consts.getString("CONSTRUCTOR");
+
     /*
     verifies if the desired design pattern is implemented
     or not in the config file
@@ -45,22 +71,22 @@ public class Constants {
         String toPrint;
         switch(classType.toUpperCase()){
             case "ABSTRACT CLASS":
-                toPrint = consts.getString("AbstractClassPrompt");
+                toPrint = AbstractClassPrompt;
                 break;
             case "REGULAR CLASS":
-                toPrint = consts.getString("RegularClassPrompt");
+                toPrint = RegularClassPrompt;
                 break;
             case "ABSTRACT FUNCTION AMOUNT":
-                toPrint = consts.getString("AbstractFunctionAmountPrompt");
+                toPrint = AbstractFunctionAmountPrompt;
                 break;
             case "FUNCTION AMOUNT":
-                toPrint = consts.getString("FunctionAmountPrompt");
+                toPrint = FunctionAmountPrompt;
                 break;
             case "AMOUNT OF SUBCLASSES":
-                toPrint = consts.getString("AmountSubclassesPrompt");
+                toPrint = AmountSubclassesPrompt;
                 break;
             case "INTERFACE":
-                toPrint = consts.getString("InterfacePrompt");
+                toPrint = InterfacePrompt;
                 break;
             default:
                 toPrint = "some error";
@@ -86,7 +112,7 @@ public class Constants {
     /*
     writes the given file once the whole string to be used is created
      */
-    public static boolean writeToFile(File f,String stringToWrite) {
+    private static boolean writeToFile(File f,String stringToWrite) {
         try {
             // add the last } needed for the outer {
             stringToWrite += "}";
@@ -109,44 +135,45 @@ public class Constants {
     makes the string for the beginning of the class
      */
     public static String createContainerStub(Container c){
-        System.out.println("creat contain");
-        String textToWrite = "";
-
         // if the container is an interface
         if(c.type.toUpperCase().compareTo("INTERFACE") == 0){
-            textToWrite += consts.getString(c.type.toUpperCase()) + c.name + "{\n\n";
+            c.text += String.format(InterfaceSig, c.name);
         }
         // the class implements an interface
         else if(c.implement){
-            textToWrite += consts.getString(c.type.toUpperCase()) + c.name + consts.getString("IMPLEMENTS") + c.partOf + "{\n\n";
+            c.text += String.format(ClassImplementsSig,c.name,c.partOf);
         }
         // it is a class that is extending another class
         else if(c.extend){
-            textToWrite += consts.getString(c.type.toUpperCase()) + c.name + consts.getString("EXTENDS") + c.partOf + "{\n\n";
+            c.text += String.format(ClassExtendsSig,c.name,c.partOf);
         }
         // some kind of super class
         else{
-            textToWrite += consts.getString(c.type.toUpperCase()) + c.name + "{\n\n";
+            c.text += String.format(RegularClassSig,c.name);
         }
-        return textToWrite;
+        return c.text;
+
     }
 
     /*
     creates the subclass string with the override and the extends
      */
     public static String createSubClass(Container c){
-        String subClassText = createContainerStub(c);
+        createContainerStub(c);
         for(int i = 0; i < c.functionAmount;i++){
-            subClassText += makeFuncStubs(true,"regular function") + i + "(){\n\t}\n\n";
+            c.text += String.format(makeFuncStubs(true,"regular function gen"),i);
         }
 
-        return subClassText;
+        // lastly create the constructors
+        c.text += String.format(makeFuncStubs(false,"constructor"),c.name);
+
+        return c.text;
     }
 
     /*
     creates the .java file once the text is ready
      */
-    public static void createFile(Container c, String toWrite){
+    public static void createFile(Container c){
         try {
             String dir = System.getProperty("user.dir") + "/" + c.dirName;
             File newFile = new File(dir,c.name + ".java");
@@ -155,7 +182,7 @@ public class Constants {
             if (newFile.createNewFile()) {
                 // log the creation of the file...
                 System.out.println("File created: " + newFile.getName());
-                writeToFile(newFile,toWrite);
+                writeToFile(newFile,c.text);
             } else {
                 System.out.println("File already exists.");
             }
@@ -164,5 +191,4 @@ public class Constants {
             e.printStackTrace();
         }
     }
-
 }

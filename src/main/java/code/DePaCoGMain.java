@@ -1,6 +1,5 @@
 package code;
 
-//import consts.Constants;
 import consts.Constants;
 import designPatterns.AbstractFactory;
 
@@ -26,7 +25,6 @@ public class DePaCoGMain {
                 else{
                     switch(desiredDesPat){
                         case "ABSTRACT FACTORY":
-//                            AbstractFactory.createAbstractFactory();
                             new AbstractFactory().createAbstractFactory();
                             break;
                         case "BUILDER":

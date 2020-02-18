@@ -1,6 +1,5 @@
 package designPatterns;
 
-//import consts.Constants;
 import consts.Constants;
 
 import java.util.ArrayList;
@@ -30,7 +29,10 @@ public class AbstractFactory{
         // make the directory
         Constants.createDir(this.mainInterfaceName);
 
+        // used to keep track of the concrete classes that implement the interface
         this.concreteClassList = new ArrayList<>();
+
+        // to have a name for the create function and abstract factory
         this.abstFactoryName = mainInterfaceName+"AbstractFactory";
         this.abstFactoryMethodName = "create"+ mainInterfaceName;
     }
@@ -39,21 +41,23 @@ public class AbstractFactory{
         // create interface for the product we are going to mass produce
         Container mainInterface = new Container("interface", mainInterfaceName, "",totalFuncs);
         mainInterface.setDirName(mainInterfaceName);
-        String mainInterfaceText = Constants.createContainerStub(mainInterface);
+        Constants.createContainerStub(mainInterface);
 
         // adding the function stubs
         for(int i = 0; i < mainInterface.functionAmount; i++){
-            mainInterfaceText += Constants.makeFuncStubs(false,"regular function gen") + i + "();\n";
+            mainInterface.text += String.format(Constants.makeFuncStubs(false,"interface function gen"),i);
         }
 
         // ready to create main interface file
-        Constants.createFile(mainInterface,mainInterfaceText);
+        Constants.createFile(mainInterface);
         //now create the subclasses
         createFactorySubclasses();
         //create factory interface
         createFactoryInterface();
         // create the factories for the concrete subclasses classes
         createFactoryForConcreteClasses();
+        //create the main factory that will create the products from the different factories
+        createInterfaceFactoryMaker();
     }
 
     /*
@@ -68,8 +72,8 @@ public class AbstractFactory{
             Container subClass = new Container("regular class",name,mainInterfaceName,totalFuncs);
             subClass.setImplement(true);
             subClass.setDirName(mainInterfaceName);
-            String subClassText = Constants.createSubClass(subClass);
-            Constants.createFile(subClass,subClassText);
+            Constants.createSubClass(subClass);
+            Constants.createFile(subClass);
 
             // now add the new concrete class into the list
             concreteClassList.add(subClass);
@@ -84,9 +88,9 @@ public class AbstractFactory{
         factoryInterface.setDirName(mainInterfaceName);
 
         //now make the text for this interface
-        String factoryInterfaceText = Constants.createContainerStub(factoryInterface);
-        factoryInterfaceText += Constants.makeFuncStubs(false,"regular function") + mainInterfaceName + " " + abstFactoryMethodName + "();\n";
-        Constants.createFile(factoryInterface,factoryInterfaceText);
+        Constants.createContainerStub(factoryInterface);
+        factoryInterface.text += String.format(Constants.makeFuncStubs(false,"interface function with return and name"),mainInterfaceName,abstFactoryMethodName);
+        Constants.createFile(factoryInterface);
     }
 
     /*
@@ -95,13 +99,33 @@ public class AbstractFactory{
      */
     private void createFactoryForConcreteClasses(){
         for(int i = 0; i < totalSubClasses; i++){
-            Container subClass = new Container("regular class",concreteClassList.get(i).name + "Factory",abstFactoryName,1);
-            subClass.setImplement(true);
-            subClass.setDirName(mainInterfaceName);
+            Container subFactory = new Container("regular class",concreteClassList.get(i).name + "Factory",abstFactoryName,1);
+            subFactory.setImplement(true);
+            subFactory.setDirName(mainInterfaceName);
 
-            String subClassText = Constants.createContainerStub(subClass);
-            subClassText += Constants.makeFuncStubs(true,"regular function") + mainInterfaceName + " " + abstFactoryMethodName + "(){\n\t}\n";
-            Constants.createFile(subClass,subClassText);
+            Constants.createContainerStub(subFactory);
+            subFactory.text += String.format(Constants.makeFuncStubs(true,"function with return and name"),mainInterfaceName,abstFactoryMethodName,concreteClassList.get(i).name);
+            // now make constructor
+            subFactory.text += String.format(Constants.makeFuncStubs(false,"constructor"), subFactory.name);
+            Constants.createFile(subFactory);
         }
+    }
+
+    /*
+    creates the factory that makes the abstract factories
+    that will create an instance of a product of type main interface
+    will only have 1 public static method that will create a product
+    from the given factory
+     */
+    private void createInterfaceFactoryMaker(){
+        Container mainFactory = new Container("regular class",mainInterfaceName+"Factory","",1);
+        // implements and extends are to be set to false since this is going to be a regular class
+        mainFactory.setDirName(mainInterfaceName);
+
+        Constants.createContainerStub(mainFactory);
+        //create function stub
+        mainFactory.text += "\t"+ Constants.PublicStatic + mainInterfaceName + " " + abstFactoryMethodName;
+        mainFactory.text += String.format("(%s %s){\n\treturn %s.%s();\n\t}\n",abstFactoryName,"af","af",abstFactoryMethodName);
+        Constants.createFile(mainFactory);
     }
 }
