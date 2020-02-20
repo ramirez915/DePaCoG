@@ -56,10 +56,7 @@ public class MyConstants {
     or not in the config file
      */
     public static boolean verifyImplementation(String desPat){
-        if(consts.getBoolean(desPat)){
-            return true;
-        }
-        return false;
+        return consts.getBoolean(desPat.toUpperCase());
     }
 
     /*
