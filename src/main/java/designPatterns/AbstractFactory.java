@@ -1,36 +1,34 @@
 package designPatterns;
 
-import consts.Constants;
+import consts.MyConstants;
+import consts.Tools;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
-public class AbstractFactory{
+/*
+the design pattern revolves around one idea (interface) that will be
+implemented by many different concrete classes. Then the concrete classes
+will have their own factories that will create instances of those
+concrete classes that implement the interface (idea). All these factories will
+be together in ONE factory (using an interface that will produce the given concrete object from
+the correct factory)
+ */
+public class AbstractFactory extends DesignPatternObj{
     private String designPatternType;
     private String mainInterfaceName;
-    private int totalSubClasses;
     private int totalFuncs;
     private String abstFactoryName;
     private String abstFactoryMethodName;
-    private ArrayList<Container> concreteClassList;
+    private ArrayList<String> abstractFactoryParams;
 
     // get the information for the super class and sub classes
     public AbstractFactory(){
-        Scanner input = new Scanner(System.in);
+        // order of params: main interface, function amount, amount of subclasses and names of subclasses
+        abstractFactoryParams = Tools.getParamsForPattern("abstract factory");
         this.designPatternType = "abstract factory";
-        Constants.printInstructions("interface");
-        this.mainInterfaceName = input.nextLine();
-
-        Constants.printInstructions("function amount");
-        this.totalFuncs = Integer.parseInt(input.nextLine());
-        Constants.printInstructions("amount of subclasses");
-        this.totalSubClasses = Integer.parseInt(input.nextLine());
-
+        parseDesignPatternParams(abstractFactoryParams);
         // make the directory
-        Constants.createDir(this.mainInterfaceName);
-
-        // used to keep track of the concrete classes that implement the interface
-        this.concreteClassList = new ArrayList<>();
+        MyConstants.createDir(this.mainInterfaceName);
 
         // to have a name for the create function and abstract factory
         this.abstFactoryName = mainInterfaceName+"AbstractFactory";
@@ -41,15 +39,15 @@ public class AbstractFactory{
         // create interface for the product we are going to mass produce
         Container mainInterface = new Container("interface", mainInterfaceName, "",totalFuncs);
         mainInterface.setDirName(mainInterfaceName);
-        Constants.createContainerStub(mainInterface);
+        MyConstants.createContainerStub(mainInterface);
 
         // adding the function stubs
         for(int i = 0; i < mainInterface.functionAmount; i++){
-            mainInterface.text += String.format(Constants.makeFuncStubs(false,"interface function gen"),i);
+            mainInterface.text += String.format(MyConstants.InterfaceFunctionGenericSig,i);
         }
 
         // ready to create main interface file
-        Constants.createFile(mainInterface);
+        MyConstants.createFile(mainInterface);
         //now create the subclasses
         createFactorySubclasses();
         //create factory interface
@@ -64,19 +62,24 @@ public class AbstractFactory{
     creates the sub classes (products) created by factory and the interface that will be implemented by all factories
      */
     private void createFactorySubclasses(){
-        Scanner input = new Scanner(System.in);
         String name = "";
-        for(int i = 0; i < totalSubClasses; i++){
-            Constants.printInstructions("regular class");
-            name = input.nextLine();
+        // 2 because of the position of the names starts at 2 in the abstractFactoryParams list
+        for(int i = 2; i < abstractFactoryParams.size(); i++){
+            ArrayList<String> subClassParams = new ArrayList<>();
+            name = abstractFactoryParams.get(i);
             Container subClass = new Container("regular class",name,mainInterfaceName,totalFuncs);
             subClass.setImplement(true);
             subClass.setDirName(mainInterfaceName);
-            Constants.createSubClass(subClass);
-            Constants.createFile(subClass);
 
-            // now add the new concrete class into the list
-            concreteClassList.add(subClass);
+            MyConstants.createContainerStub(subClass);
+            // will need the override because implementing an interface
+            for(int j = 0; j < this.totalFuncs; j++){
+                subClass.text += MyConstants.OverrideRegularFunctionGenericSig;
+                subClassParams.add(String.valueOf(j));
+            }
+            // now finalize this subclass
+            MyConstants.finalizeClass(subClass,subClassParams);
+            MyConstants.createFile(subClass);
         }
     }
 
@@ -85,12 +88,16 @@ public class AbstractFactory{
      */
     private void createFactoryInterface(){
         Container factoryInterface = new Container("interface",abstFactoryName,"",1);
+        ArrayList<String> params = new ArrayList<>();
+        params.add(mainInterfaceName);
+        params.add(abstFactoryMethodName);
         factoryInterface.setDirName(mainInterfaceName);
 
-        //now make the text for this interface
-        Constants.createContainerStub(factoryInterface);
-        factoryInterface.text += String.format(Constants.makeFuncStubs(false,"interface function with return and name"),mainInterfaceName,abstFactoryMethodName);
-        Constants.createFile(factoryInterface);
+        //now make the text for this interface and create the file
+        MyConstants.createContainerStub(factoryInterface);
+        factoryInterface.text += MyConstants.InterfaceFuncWReturnAndNameSig;
+        factoryInterface.formatTextTest(params);
+        MyConstants.createFile(factoryInterface);
     }
 
     /*
@@ -98,16 +105,18 @@ public class AbstractFactory{
     and implement the factory interface
      */
     private void createFactoryForConcreteClasses(){
-        for(int i = 0; i < totalSubClasses; i++){
-            Container subFactory = new Container("regular class",concreteClassList.get(i).name + "Factory",abstFactoryName,1);
+        // 2 because of the position of the names starts at 2 in the abstractFactoryParams list
+        for(int i = 2; i < abstractFactoryParams.size(); i++){
+            Container subFactory = new Container("regular class",abstractFactoryParams.get(i) + "Factory",abstFactoryName,1);
             subFactory.setImplement(true);
             subFactory.setDirName(mainInterfaceName);
 
-            Constants.createContainerStub(subFactory);
-            subFactory.text += String.format(Constants.makeFuncStubs(true,"function with return and name"),mainInterfaceName,abstFactoryMethodName,concreteClassList.get(i).name);
+            MyConstants.createContainerStub(subFactory);
+            subFactory.text += String.format(MyConstants.OverrideFunctionWReturnAndNameSig,mainInterfaceName,abstFactoryMethodName);
+            subFactory.text += String.format(MyConstants.ReturnNewStub,abstractFactoryParams.get(i));
             // now make constructor
-            subFactory.text += String.format(Constants.makeFuncStubs(false,"constructor"), subFactory.name);
-            Constants.createFile(subFactory);
+            subFactory.text += String.format(MyConstants.ConstructorSig,subFactory.name);
+            MyConstants.createFile(subFactory);
         }
     }
 
@@ -122,10 +131,16 @@ public class AbstractFactory{
         // implements and extends are to be set to false since this is going to be a regular class
         mainFactory.setDirName(mainInterfaceName);
 
-        Constants.createContainerStub(mainFactory);
+        MyConstants.createContainerStub(mainFactory);
         //create function stub
-        mainFactory.text += "\t"+ Constants.PublicStatic + mainInterfaceName + " " + abstFactoryMethodName;
+        mainFactory.text += "\t"+ MyConstants.PublicStatic + mainInterfaceName + " " + abstFactoryMethodName;
         mainFactory.text += String.format("(%s %s){\n\treturn %s.%s();\n\t}\n",abstFactoryName,"af","af",abstFactoryMethodName);
-        Constants.createFile(mainFactory);
+        MyConstants.createFile(mainFactory);
+    }
+
+    @Override
+    public void parseDesignPatternParams(ArrayList<String> paramList) {
+        this.mainInterfaceName = abstractFactoryParams.get(0);
+        this.totalFuncs = Integer.parseInt(abstractFactoryParams.get(1));
     }
 }

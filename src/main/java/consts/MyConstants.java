@@ -6,8 +6,10 @@ import designPatterns.Container;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.util.ArrayList;
+import java.util.Scanner;
 
-public class Constants {
+public class MyConstants {
     static Config consts = ConfigFactory.load("javaWay.conf");
 
     // prompts to user
@@ -17,6 +19,8 @@ public class Constants {
     public static String FunctionAmountPrompt = consts.getString("FunctionAmountPrompt");
     public static String AmountSubclassesPrompt = consts.getString("AmountSubclassesPrompt");
     public static String InterfacePrompt = consts.getString("InterfacePrompt");
+    public static String VariableTypePrompt = consts.getString("VariableTypePrompt");
+    public static String VariableAmountPrompt = consts.getString("VariableAmountPrompt");
 
     // signatures for the classes, functions, and interfaces
     public static String AbstractClassSig = consts.getString("ABSTRACT CLASS");
@@ -26,15 +30,26 @@ public class Constants {
     public static String AbstractFunctionGenericSig = consts.getString("ABSTRACT FUNCTION GEN");
     public static String RegularFunctionGenericSig = consts.getString("REGULAR FUNCTION GEN");
     public static String StaticFunctionGenericSig = consts.getString("STATIC FUNCTION GEN");
-    public static String InterfaceGenericSig = consts.getString("INTERFACE FUNCTION GEN");
+    public static String InterfaceFunctionGenericSig = consts.getString("INTERFACE FUNCTION GEN");
     public static String OverrideRegularFunctionGenericSig = consts.getString("OVERRIDE REGULAR FUNCTION GEN");
+    public static String OverrideAbstractFunctionGenericSig = consts.getString("OVERRIDE ABSTRACT FUNCTION GEN");
     public static String FunctionWReturnAndNameSig = consts.getString("FUNCTION WITH RETURN AND NAME");
+    public static String OverrideFunctionWReturnAndNameSig = consts.getString("OVERRIDE FUNCTION WITH RETURN AND NAME");
     public static String InterfaceFuncWReturnAndNameSig = consts.getString("INTERFACE FUNCTION WITH RETURN AND NAME");
+    public static String ReturnNewStub = consts.getString("RETURN NEW");
+    public static String ReturnNullStub = consts.getString("RETURN NULL");
 
     public static String InterfaceSig = consts.getString("INTERFACE");
     public static String ClassImplementsSig = consts.getString("CLASS IMPLEMENTS");
     public static String ClassExtendsSig = consts.getString("CLASS EXTENDS");
     public static String ConstructorSig = consts.getString("CONSTRUCTOR");
+
+    public static String VarDeclaration = consts.getString("VAR DECLARATION");
+
+    //switch
+    public static String SwitchBeginStub = consts.getString("SWITCH");
+    public static String CaseReturnNewStub = consts.getString("CASE RETURN NEW");
+    public static String DefaultCaseStub = consts.getString("DEFAULT CASE");
 
     /*
     verifies if the desired design pattern is implemented
@@ -50,7 +65,7 @@ public class Constants {
     /*
     creates a directory for the new files
      */
-    public static String createDir(String name){
+    public static void createDir(String name){
         // get current working directory
         String path = System.getProperty("user.dir");
         path += "/" + name;
@@ -60,53 +75,17 @@ public class Constants {
         } catch(Exception e){
             System.out.println("could not create directory");
         }
-        return path;
     }
 
     /*
-    gives correct prompt to user
+    make variable stubs for the amount of variables in the array
      */
-
-    public static void printInstructions(String classType){
-        String toPrint;
-        switch(classType.toUpperCase()){
-            case "ABSTRACT CLASS":
-                toPrint = AbstractClassPrompt;
-                break;
-            case "REGULAR CLASS":
-                toPrint = RegularClassPrompt;
-                break;
-            case "ABSTRACT FUNCTION AMOUNT":
-                toPrint = AbstractFunctionAmountPrompt;
-                break;
-            case "FUNCTION AMOUNT":
-                toPrint = FunctionAmountPrompt;
-                break;
-            case "AMOUNT OF SUBCLASSES":
-                toPrint = AmountSubclassesPrompt;
-                break;
-            case "INTERFACE":
-                toPrint = InterfacePrompt;
-                break;
-            default:
-                toPrint = "some error";
+    public static void makeVariableStubs(String[] varTypeList,Container c){
+        int counter = 0;
+        for(String s: varTypeList){
+            c.text += String.format(VarDeclaration,s,counter);
+            counter++;
         }
-        System.out.println(toPrint);
-    }
-
-    /*
-    makes the function stubs depending if needs to overridden or not
-     */
-    public static String makeFuncStubs(boolean isOverride, String funcType){
-        String functionText = "";
-        //if we are not creating functions to be overridden
-        if(!isOverride){
-            functionText = consts.getString(funcType.toUpperCase());
-        }
-        else{
-            functionText = "\t@Override\n" + consts.getString(funcType.toUpperCase());
-        }
-        return functionText;
     }
 
     /*
@@ -134,7 +113,7 @@ public class Constants {
     /*
     makes the string for the beginning of the class
      */
-    public static String createContainerStub(Container c){
+    public static void createContainerStub(Container c){
         // if the container is an interface
         if(c.type.toUpperCase().compareTo("INTERFACE") == 0){
             c.text += String.format(InterfaceSig, c.name);
@@ -151,23 +130,29 @@ public class Constants {
         else{
             c.text += String.format(RegularClassSig,c.name);
         }
-        return c.text;
-
     }
 
     /*
-    creates the subclass string with the override and the extends
+    puts together all the last parts that pertains to a class
+    the last parameter which is the name for constructor
+    and then appends the constructor to the text
+    then creates the file
      */
-    public static String createSubClass(Container c){
-        createContainerStub(c);
-        for(int i = 0; i < c.functionAmount;i++){
-            c.text += String.format(makeFuncStubs(true,"regular function gen"),i);
+    public static void finalizeClass(Container c,ArrayList<String> paramsList){
+        paramsList.add(c.name);
+        c.text += MyConstants.ConstructorSig;
+        c.formatTextTest(paramsList);
+    }
+
+    /*
+    creates the switch case stub
+     */
+    public static void createSwitchCase(Container c,ArrayList<Container> subClassList){
+        c.text += SwitchBeginStub;
+        for(Container subClass: subClassList){
+            c.text += String.format(CaseReturnNewStub,subClass.name,subClass.name);
         }
-
-        // lastly create the constructors
-        c.text += String.format(makeFuncStubs(false,"constructor"),c.name);
-
-        return c.text;
+        c.text += DefaultCaseStub;
     }
 
     /*

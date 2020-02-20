@@ -1,7 +1,8 @@
 package code;
 
-import consts.Constants;
+import consts.MyConstants;
 import designPatterns.AbstractFactory;
+import designPatterns.FactoryMethod;
 
 import java.util.Scanner;
 
@@ -19,7 +20,7 @@ public class DePaCoGMain {
             // main way that the program is going to work
             // first check if the desired design pattern is marked as not implemented in configuration
             try{
-                if(!Constants.verifyImplementation(desiredDesPat)){
+                if(!MyConstants.verifyImplementation(desiredDesPat)){
                     System.out.println("is not implemented\n");
                 }
                 else{
@@ -27,8 +28,8 @@ public class DePaCoGMain {
                         case "ABSTRACT FACTORY":
                             new AbstractFactory().createAbstractFactory();
                             break;
-                        case "BUILDER":
-                            
+                        case "FACTORY METHOD":
+                            new FactoryMethod().createFactoryMethod();
                             break;
                         // something unusual. This is when then design pattern is in the config file and true but not in the switch...
                         default:

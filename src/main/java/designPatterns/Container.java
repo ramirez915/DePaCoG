@@ -1,5 +1,7 @@
 package designPatterns;
 
+import java.util.ArrayList;
+
 /*
 will contain the information for containers such as a class or an interface
  */
@@ -30,4 +32,17 @@ public class Container {
 
     public void setImplement(boolean tf){ implement = tf;}
     public void setExtend(boolean tf){ extend = tf;}
+
+    /*
+    idea is to format the whole thing at the end
+     */
+    public void formatTextTest(ArrayList<String> values){
+        String[] paramListForFormat = new String[values.size()];
+        int index = 0;
+        for(String s: values){
+            paramListForFormat[index] = s;
+            index++;
+        }
+        this.text = String.format(this.text,(Object[]) paramListForFormat);     // needed to cast Object[] to not get warning...
+    }
 }
