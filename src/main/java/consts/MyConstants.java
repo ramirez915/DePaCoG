@@ -123,6 +123,9 @@ public class MyConstants {
         else if(c.extend){
             c.text += String.format(ClassExtendsSig,c.name,c.partOf);
         }
+        else if(c.type.toUpperCase().compareTo("ABSTRACT CLASS") == 0){
+            c.text += String.format(AbstractClassSig,c.name);
+        }
         // some kind of super class
         else{
             c.text += String.format(RegularClassSig,c.name);

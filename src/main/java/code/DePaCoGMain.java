@@ -2,6 +2,7 @@ package code;
 
 import consts.MyConstants;
 import designPatterns.AbstractFactory;
+import designPatterns.Builder;
 import designPatterns.FactoryMethod;
 
 import java.util.HashMap;
@@ -41,6 +42,7 @@ public class DePaCoGMain {
                             new AbstractFactory().createAbstractFactory();
                             break;
                         case 2:
+                            new Builder().createBuilder();
                             break;
                         case 3:
                             new FactoryMethod().createFactoryMethod();
