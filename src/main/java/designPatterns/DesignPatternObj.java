@@ -3,12 +3,9 @@ package designPatterns;
 import java.util.ArrayList;
 
 public abstract class DesignPatternObj {
-    protected String designPatternType;
-    protected String mainInterfaceName;                 // maybe make this exclusive to abstract factory
     protected int totalFuncs;
-    protected String abstFactoryName;                   // maybe make this exclusive to abstract factory
-    protected String abstFactoryMethodName;             // this too
     protected ArrayList<Container> subClassList;
+    protected ArrayList<String> desPatParams;
 
     /*
      will parse out the parameters gotten from the user

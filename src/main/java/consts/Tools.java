@@ -16,6 +16,13 @@ public class Tools {
                 // order: the main interface, amount of functions, amount of subclasses, name of subclasses
                 abstractFactoryPrompts(designPatterParams,input);
                 break;
+            case "BUILDER":
+                /*
+                order or params: main class name, mandatory variable amount,
+                optional amount, variable types (mandatory + optional)
+                 */
+                builderPrompts(designPatterParams,input);
+                break;
             case "FACTORY METHOD":
                 // order: abstract class name, variable amount,
                 // variable types (size x so positions of following will be determined later),
@@ -79,5 +86,46 @@ public class Tools {
         paramList.add(input.nextLine());
 
         getSubClassesName(paramList,input);
+    }
+
+    /*
+    order or params: main class name, mandatory variable amount,
+    optional amount, variable types (mandatory + optional)
+     */
+    private static void builderPrompts(ArrayList<String> paramList,Scanner input){
+        System.out.println(MyConstants.RegularClassPrompt);
+        paramList.add(input.nextLine());
+
+        // error checks that the user puts in at least one mandatory attribute
+        int mandatoryAttAmount = 0;
+        while (mandatoryAttAmount == 0){
+            System.out.println("***Mandatory attributes***");
+            System.out.println(MyConstants.MandatoryAttributeAmountPrompt);
+            mandatoryAttAmount = Integer.parseInt(input.nextLine());
+        }
+        paramList.add(String.valueOf(mandatoryAttAmount));
+
+        // error checks that the user puts in at least one optional attribute
+        int optionalAttAmount = 0;
+        while (optionalAttAmount == 0){
+            System.out.println("***Optional attributes***");
+            System.out.println(MyConstants.OptionalAttributeAmountPrompt);
+            optionalAttAmount = Integer.parseInt(input.nextLine());
+        }
+        paramList.add(String.valueOf(optionalAttAmount));
+
+        // get the mandatory attributes type
+        System.out.println("***Mandatory attributes***");
+        for(int i = 0; i < mandatoryAttAmount; i++){
+            System.out.println(MyConstants.VariableTypePrompt);
+            paramList.add(input.nextLine());
+        }
+
+        // get the optional attribute type
+        System.out.println("***Optional attributes***");
+        for(int i = 0; i < optionalAttAmount; i++){
+            System.out.println(MyConstants.VariableTypePrompt);
+            paramList.add(input.nextLine());
+        }
     }
 }

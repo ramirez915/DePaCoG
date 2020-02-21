@@ -23,15 +23,10 @@ overridden abstract functions (ask for variables and functions???)
 ---------------------------
  */
 public class FactoryMethod extends DesignPatternObj{
-//    protected String designPatternType;
-//    protected int totalFuncs;
-//    protected ArrayList<Container> subClassList;
     private String mainAbstractClassName;
     private int totalAbstractMethods;
     private int totalRegularMethods;
-    private int totalVariables;
     private String[] variableTypes;
-    private ArrayList<String> factoryParams;
     private int namesStartIndex;
     private String mainFactoryName;
 
@@ -39,9 +34,9 @@ public class FactoryMethod extends DesignPatternObj{
     public FactoryMethod(){
         // order or params: abstract class name, variable amount,
         // variable types (x amount) abstract function amount, regular function amount
-        factoryParams = Tools.getParamsForPattern("factory method");
-        this.designPatternType = "Factory Method";
-        parseDesignPatternParams(factoryParams);
+        this.desPatParams = new ArrayList<>();
+        desPatParams = Tools.getParamsForPattern("factory method");
+        parseDesignPatternParams(this.desPatParams);
         this.mainFactoryName = this.mainAbstractClassName + "Factory";
         this.subClassList = new ArrayList<>();
 
@@ -59,7 +54,7 @@ public class FactoryMethod extends DesignPatternObj{
         MyConstants.createContainerStub(mainAbstractClass);
 
         // add variables first
-        MyConstants.makeVariableStubs(this.variableTypes,mainAbstractClass);
+        MyConstants.makeVariableStubs(this.variableTypes,mainAbstractClass,false);
         // now add the abstract methods
         for(int i = 0; i < this.totalAbstractMethods; i++){
             mainAbstractClass.text += String.format(MyConstants.AbstractFunctionGenericSig,i);
@@ -78,10 +73,10 @@ public class FactoryMethod extends DesignPatternObj{
     }
 
     private void createFactorySubClasses(){
-        for(int i = this.namesStartIndex; i < this.factoryParams.size(); i++){
+        for(int i = this.namesStartIndex; i < this.desPatParams.size(); i++){
             // for these sub classes get the total abstract methods when creating the container
             ArrayList<String> subClassParams = new ArrayList<>();
-            Container subClass = new Container("regular class",factoryParams.get(i),this.mainAbstractClassName,this.totalAbstractMethods);
+            Container subClass = new Container("regular class",this.desPatParams.get(i),this.mainAbstractClassName,this.totalAbstractMethods);
             subClass.setExtend(true);
             subClass.setDirName(this.mainAbstractClassName);
 
@@ -93,7 +88,9 @@ public class FactoryMethod extends DesignPatternObj{
                 subClassParams.add(String.valueOf(j));
             }
 
-            MyConstants.finalizeClass(subClass,subClassParams);
+            subClassParams.add(subClass.name);
+            subClass.text += MyConstants.ConstructorSig;
+            subClass.formatTextTest(subClassParams);
             this.subClassList.add(subClass);
             MyConstants.createFile(subClass);
         }
@@ -120,11 +117,11 @@ public class FactoryMethod extends DesignPatternObj{
     public void parseDesignPatternParams(ArrayList<String> paramList) {
         this.mainAbstractClassName = paramList.get(0);
 
-        this.totalVariables = Integer.parseInt(paramList.get(1));
-        this.variableTypes = new String[this.totalVariables];
+        int totalVariables = Integer.parseInt(paramList.get(1));
+        this.variableTypes = new String[totalVariables];
         int index = 2;
         // keep asking the variable types for the total number of variables
-        for(int i = 0; i < this.totalVariables; i++){
+        for(int i = 0; i < totalVariables; i++){
             this.variableTypes[i] = paramList.get(index);
             index++;
         }

@@ -14,7 +14,6 @@ be together in ONE factory (using an interface that will produce the given concr
 the correct factory)
  */
 public class AbstractFactory extends DesignPatternObj{
-    private String designPatternType;
     private String mainInterfaceName;
     private int totalFuncs;
     private String abstFactoryName;
@@ -25,7 +24,6 @@ public class AbstractFactory extends DesignPatternObj{
     public AbstractFactory(){
         // order of params: main interface, function amount, amount of subclasses and names of subclasses
         abstractFactoryParams = Tools.getParamsForPattern("abstract factory");
-        this.designPatternType = "abstract factory";
         parseDesignPatternParams(abstractFactoryParams);
         // make the directory
         MyConstants.createDir(this.mainInterfaceName);
@@ -78,7 +76,10 @@ public class AbstractFactory extends DesignPatternObj{
                 subClassParams.add(String.valueOf(j));
             }
             // now finalize this subclass
-            MyConstants.finalizeClass(subClass,subClassParams);
+            subClassParams.add(subClass.name);
+            subClass.text += MyConstants.ConstructorSig;
+            subClass.formatTextTest(subClassParams);
+
             MyConstants.createFile(subClass);
         }
     }

@@ -21,10 +21,13 @@ public class MyConstants {
     public static String InterfacePrompt = consts.getString("InterfacePrompt");
     public static String VariableTypePrompt = consts.getString("VariableTypePrompt");
     public static String VariableAmountPrompt = consts.getString("VariableAmountPrompt");
+    public static String MandatoryAttributeAmountPrompt = consts.getString("MandatoryAttributeAmountPrompt");
+    public static String OptionalAttributeAmountPrompt = consts.getString("OptionalAttributeAmountPrompt");
 
     // signatures for the classes, functions, and interfaces
     public static String AbstractClassSig = consts.getString("ABSTRACT CLASS");
     public static String RegularClassSig = consts.getString("CLASS");
+    public static String StaticClassSig = consts.getString("STATIC CLASS");
     public static String PublicStatic = consts.getString("STATIC");
 
     public static String AbstractFunctionGenericSig = consts.getString("ABSTRACT FUNCTION GEN");
@@ -38,13 +41,18 @@ public class MyConstants {
     public static String InterfaceFuncWReturnAndNameSig = consts.getString("INTERFACE FUNCTION WITH RETURN AND NAME");
     public static String ReturnNewStub = consts.getString("RETURN NEW");
     public static String ReturnNullStub = consts.getString("RETURN NULL");
+    public static String ReturnSomethingStub = consts.getString("RETURN SOMETHING");
 
     public static String InterfaceSig = consts.getString("INTERFACE");
     public static String ClassImplementsSig = consts.getString("CLASS IMPLEMENTS");
     public static String ClassExtendsSig = consts.getString("CLASS EXTENDS");
     public static String ConstructorSig = consts.getString("CONSTRUCTOR");
+    public static String PrivateConstructorSig = consts.getString("PRIVATE CONSTRUCTOR");
 
     public static String VarDeclaration = consts.getString("VAR DECLARATION");
+    public static String PrivateVarDeclaration = consts.getString("PRIVATE VAR");
+    public static String GetterFuncSig = consts.getString("GETTER");
+    public static String SetterWRetOptionSig = consts.getString("SETTER W RET OPTION");
 
     //switch
     public static String SwitchBeginStub = consts.getString("SWITCH");
@@ -77,11 +85,19 @@ public class MyConstants {
     /*
     make variable stubs for the amount of variables in the array
      */
-    public static void makeVariableStubs(String[] varTypeList,Container c){
+    public static void makeVariableStubs(String[] varTypeList,Container c,Boolean isPrivate){
         int counter = 0;
-        for(String s: varTypeList){
-            c.text += String.format(VarDeclaration,s,counter);
-            counter++;
+        if(!isPrivate){
+            for(String s: varTypeList){
+                c.text += String.format(VarDeclaration,s,counter);
+                counter++;
+            }
+        }
+        else{
+            for(String s: varTypeList){
+                c.text += String.format(PrivateVarDeclaration,s,counter);
+                counter++;
+            }
         }
     }
 
@@ -126,22 +142,13 @@ public class MyConstants {
         else if(c.type.toUpperCase().compareTo("ABSTRACT CLASS") == 0){
             c.text += String.format(AbstractClassSig,c.name);
         }
+        else if(c.type.toUpperCase().compareTo("STATIC CLASS") == 0){
+            c.text += String.format(StaticClassSig,c.name);
+        }
         // some kind of super class
         else{
             c.text += String.format(RegularClassSig,c.name);
         }
-    }
-
-    /*
-    puts together all the last parts that pertains to a class
-    the last parameter which is the name for constructor
-    and then appends the constructor to the text
-    then creates the file
-     */
-    public static void finalizeClass(Container c,ArrayList<String> paramsList){
-        paramsList.add(c.name);
-        c.text += MyConstants.ConstructorSig;
-        c.formatTextTest(paramsList);
     }
 
     /*
