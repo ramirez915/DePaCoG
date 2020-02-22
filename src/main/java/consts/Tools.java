@@ -29,6 +29,8 @@ public class Tools {
                 // abstract function amount, regular function amount
                 factoryMethodPrompts(designPatterParams,input);
                 break;
+            case "TEMPLATE":
+                templatePrompt(designPatterParams,input);
             default:
                 System.out.println("Unknown design pattern");
         }
@@ -89,7 +91,7 @@ public class Tools {
     }
 
     /*
-    order or params: main class name, mandatory variable amount,
+    order of params: main class name, mandatory variable amount,
     optional amount, variable types (mandatory + optional)
      */
     private static void builderPrompts(ArrayList<String> paramList,Scanner input){
@@ -125,6 +127,45 @@ public class Tools {
         System.out.println("***Optional attributes***");
         for(int i = 0; i < optionalAttAmount; i++){
             System.out.println(MyConstants.VariableTypePrompt);
+            paramList.add(input.nextLine());
+        }
+    }
+    /*
+    order: main abstract class, abstract function amount, regular function amount,
+    amount of absolute processes, amount of functions in each process, subclasses names
+     */
+    private static void templatePrompt(ArrayList<String> paramList,Scanner input){
+        System.out.println(MyConstants.AbstractClassPrompt);
+        paramList.add(input.nextLine());
+
+        // error checks that the user puts in at least one abstract method
+        int abstractFunctionAmount = 0;
+        while (abstractFunctionAmount == 0){
+            System.out.println(MyConstants.AbstractFunctionAmountPrompt);
+            abstractFunctionAmount = Integer.parseInt(input.nextLine());
+        }
+        paramList.add(String.valueOf(abstractFunctionAmount));
+
+        System.out.println(MyConstants.FunctionAmountPrompt);
+        paramList.add(input.nextLine());
+
+        // error checks that the user puts at least one absolute process
+        int absoluteProcessAmount = 0;
+        while (absoluteProcessAmount == 0){
+            System.out.println(MyConstants.AbsoluteProcessAmountPrompt);
+            absoluteProcessAmount = Integer.parseInt(input.nextLine());
+        }
+        paramList.add(String.valueOf(absoluteProcessAmount));
+
+        for(int i = 0; i < absoluteProcessAmount; i++){
+            System.out.println(String.format(MyConstants.AmountOfFunctionsInAbsoluteProcess,i+1));
+            paramList.add(input.nextLine());
+        }
+        System.out.println(MyConstants.AmountSubclassesPrompt);
+        int totalSubclasses = Integer.parseInt(input.nextLine());
+
+        for(int i = 0; i < totalSubclasses; i++){
+            System.out.println(MyConstants.RegularClassPrompt);
             paramList.add(input.nextLine());
         }
     }

@@ -23,6 +23,8 @@ public class MyConstants {
     public static String VariableAmountPrompt = consts.getString("VariableAmountPrompt");
     public static String MandatoryAttributeAmountPrompt = consts.getString("MandatoryAttributeAmountPrompt");
     public static String OptionalAttributeAmountPrompt = consts.getString("OptionalAttributeAmountPrompt");
+    public static String AbsoluteProcessAmountPrompt = consts.getString("AbsoluteProcessAmountPrompt");
+    public static String AmountOfFunctionsInAbsoluteProcess = consts.getString("AmountOfFunctionsInAbsoluteProcess");
 
     // signatures for the classes, functions, and interfaces
     public static String AbstractClassSig = consts.getString("ABSTRACT CLASS");
@@ -42,6 +44,8 @@ public class MyConstants {
     public static String ReturnNewStub = consts.getString("RETURN NEW");
     public static String ReturnNullStub = consts.getString("RETURN NULL");
     public static String ReturnSomethingStub = consts.getString("RETURN SOMETHING");
+    public static String GenericFunctionCall = consts.getString("GENERIC FUNCTION CALL");
+    public static String FinalFunctionGenericSig = consts.getString("FINAL FUNCTION GEN");
 
     public static String InterfaceSig = consts.getString("INTERFACE");
     public static String ClassImplementsSig = consts.getString("CLASS IMPLEMENTS");

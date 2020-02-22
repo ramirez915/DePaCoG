@@ -4,6 +4,7 @@ import consts.MyConstants;
 import designPatterns.AbstractFactory;
 import designPatterns.Builder;
 import designPatterns.FactoryMethod;
+import designPatterns.Template;
 
 import java.util.HashMap;
 import java.util.Scanner;
@@ -56,6 +57,7 @@ public class DePaCoGMain {
                         case 7:
                             break;
                         case 8:
+                            new Template().createTemplate();
                             break;
                         // something unusual. This is when then design pattern is in the config file and true but not in the switch...
                         default:
