@@ -5,11 +5,14 @@ import designPatterns.AbstractFactory;
 import designPatterns.Builder;
 import designPatterns.FactoryMethod;
 import designPatterns.Template;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Scanner;
 
 public class DePaCoGMain {
+    final static Logger logger = LoggerFactory.getLogger("DePaCoGMain");
     public static void main(String[] args){
         // maps the design pattern to a number
         HashMap<Integer,String> desPatMap = new HashMap<>();
@@ -34,8 +37,18 @@ public class DePaCoGMain {
             // main way that the program is going to work
             // first check if the desired design pattern is marked as not implemented in configuration
             try{
-                if(!MyConstants.verifyImplementation(desPatMap.get(desiredDesPat))){
+                //successful exit
+                if(desiredDesPat == 0){
+                    logger.info("Exited safely");
+                    return;
+                }
+                // invalid option
+                else if(desiredDesPat > 8 || desiredDesPat < 0){
+                    logger.info("Invalid option **{}** was selected",desiredDesPat);
+                }
+                else if(!MyConstants.verifyImplementation(desPatMap.get(desiredDesPat))){
                     System.out.println("\n****************************IS NOT IMPLEMENTED****************************\n");
+                    logger.info("User wanted to create the **{}** design pattern that is not yet implemented",desPatMap.get(desiredDesPat));
                 }
                 else{
                     switch(desiredDesPat){
@@ -61,17 +74,11 @@ public class DePaCoGMain {
                             break;
                         // something unusual. This is when then design pattern is in the config file and true but not in the switch...
                         default:
-                            System.out.println("Something strange\n");
+                            logger.warn("Tried running a design pattern with number {} that is in the config file as true but not in switch statements",desiredDesPat);
                     }
                 }
             }catch(Exception e){
-                //successful exit
-                if(desiredDesPat == 0){
-                    System.out.println("Goodbye");
-                    return;
-                }
-                //log an error
-                System.out.println("INVALID DP\n\n");
+                logger.error("Failed to create **{}**",desPatMap.get(desiredDesPat));
             }
         }
     }

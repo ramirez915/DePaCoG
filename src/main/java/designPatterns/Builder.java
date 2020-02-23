@@ -2,6 +2,8 @@ package designPatterns;
 
 import consts.MyConstants;
 import consts.Tools;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 
@@ -27,6 +29,7 @@ public class Builder extends DesignPatternObj{
     private int optionalAttributeAmount;
     private String[] mandatoryAttributeTypes;
     private String[] optionalAttributeTypes;
+    final static Logger logger = LoggerFactory.getLogger("Builder");
 
     public Builder(){
         this.desPatParams = Tools.getParamsForPattern("builder");
@@ -34,6 +37,7 @@ public class Builder extends DesignPatternObj{
 
         // make the directory
         MyConstants.createDir(this.mainClassName);
+        logger.info("Builder parameters acquired successfully");
     }
 
     public void createBuilder(){

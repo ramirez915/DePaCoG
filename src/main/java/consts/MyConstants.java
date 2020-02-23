@@ -3,14 +3,16 @@ package consts;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 import designPatterns.Container;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class MyConstants {
     static Config consts = ConfigFactory.load("javaWay.conf");
+    final static Logger logger = LoggerFactory.getLogger("MyConstants");
 
     // prompts to user
     public static String AbstractClassPrompt = consts.getString("AbstractClassPrompt");
@@ -81,8 +83,9 @@ public class MyConstants {
         try{
             File newDir = new File(path);
             newDir.mkdir();
+            logger.info("**{}** directory successfully made",name);
         } catch(Exception e){
-            System.out.println("could not create directory");
+            logger.error("**{}** directory could not be made",name);
         }
     }
 
@@ -119,9 +122,11 @@ public class MyConstants {
             writer.close();
 
             // log that the string was written successfully *****************************
-            System.out.println("*****file written successfully*****");
+//            System.out.println("*****file written successfully*****");
+            logger.info("{} file written successfully",f.getName());
         } catch (Exception e) {
             //log error
+            logger.error("Failed to write to {} file",f.getName());
             return false;
         }
         return true;
@@ -149,7 +154,7 @@ public class MyConstants {
         else if(c.type.toUpperCase().compareTo("STATIC CLASS") == 0){
             c.text += String.format(StaticClassSig,c.name);
         }
-        // some kind of super class
+        // regular class
         else{
             c.text += String.format(RegularClassSig,c.name);
         }
@@ -170,21 +175,18 @@ public class MyConstants {
     creates the .java file once the text is ready
      */
     public static void createFile(Container c){
+        String dir = System.getProperty("user.dir") + "/" + c.dirName;
+        File newFile = new File(dir,c.name + ".java");
         try {
-            String dir = System.getProperty("user.dir") + "/" + c.dirName;
-            File newFile = new File(dir,c.name + ".java");
-
-            // try creating the new .java file
             if (newFile.createNewFile()) {
-                // log the creation of the file...
-                System.out.println("File created: " + newFile.getName());
+                logger.info("File {} successfully created",newFile.getName());
+
                 writeToFile(newFile,c.text);
             } else {
-                System.out.println("File already exists.");
+                logger.warn("Unable to create File **{}**, it already exists",newFile.getName());
             }
         } catch (Exception e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
+            logger.error("Some error occurred while creating the file {}",newFile.getName());
         }
     }
 }

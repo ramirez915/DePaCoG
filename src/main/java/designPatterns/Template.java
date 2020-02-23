@@ -2,6 +2,8 @@ package designPatterns;
 
 import consts.MyConstants;
 import consts.Tools;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 
@@ -34,6 +36,7 @@ public class Template extends DesignPatternObj {
     private int totalAbstractFunctions;
     private int[] functionsInEachProcess;
     private int totalAbsoluteProcesses;
+    final static Logger logger = LoggerFactory.getLogger("Template");
 
     public Template(){
         this.desPatParams = Tools.getParamsForPattern("template");
@@ -41,12 +44,14 @@ public class Template extends DesignPatternObj {
         parseDesignPatternParams(this.desPatParams);
         // make the directory
         MyConstants.createDir(this.mainAbstractClassName);
+        logger.info("Template parameters acquired successfully");
     }
 
 
     public void createTemplate(){
         createMainAbstractClass();
         createSubclasses();
+        logger.info("Template for {} successfully created",this.mainAbstractClassName);
     }
 
     private void createMainAbstractClass(){

@@ -2,6 +2,8 @@ package designPatterns;
 
 import consts.MyConstants;
 import consts.Tools;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 
@@ -19,6 +21,7 @@ public class AbstractFactory extends DesignPatternObj{
     private String abstFactoryName;
     private String abstFactoryMethodName;
     private ArrayList<String> abstractFactoryParams;
+    final static Logger logger = LoggerFactory.getLogger("Abstract Factory");
 
     // get the information for the super class and sub classes
     public AbstractFactory(){
@@ -31,6 +34,7 @@ public class AbstractFactory extends DesignPatternObj{
         // to have a name for the create function and abstract factory
         this.abstFactoryName = mainInterfaceName+"AbstractFactory";
         this.abstFactoryMethodName = "create"+ mainInterfaceName;
+        logger.info("Abstract factory parameters acquired successfully");
     }
 
     public void createAbstractFactory(){
@@ -54,6 +58,7 @@ public class AbstractFactory extends DesignPatternObj{
         createFactoryForConcreteClasses();
         //create the main factory that will create the products from the different factories
         createInterfaceFactoryMaker();
+        logger.info("Abstract factory for {} created successfully",this.mainInterfaceName);
     }
 
     /*

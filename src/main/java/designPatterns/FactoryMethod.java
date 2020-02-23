@@ -3,6 +3,8 @@ package designPatterns;
 
 import consts.MyConstants;
 import consts.Tools;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 
@@ -29,6 +31,7 @@ public class FactoryMethod extends DesignPatternObj{
     private String[] variableTypes;
     private int namesStartIndex;
     private String mainFactoryName;
+    final static Logger logger = LoggerFactory.getLogger("Factory Method");
 
 
     public FactoryMethod(){
@@ -42,6 +45,7 @@ public class FactoryMethod extends DesignPatternObj{
 
         // make the directory
         MyConstants.createDir(this.mainAbstractClassName);
+        logger.info("Factory method parameters acquired successfully");
     }
 
     /*
@@ -70,6 +74,7 @@ public class FactoryMethod extends DesignPatternObj{
         createFactorySubClasses();
         //main factory
         createMainFactory();
+        logger.info("Factory method for {} successfully created",this.mainAbstractClassName);
     }
 
     private void createFactorySubClasses(){
