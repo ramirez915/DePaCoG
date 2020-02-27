@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="TemplateTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-02-27T04:59:42" hostname="LenovoAngle" time="0.007">
+  <properties/>
+  <testcase name="templateParsingTest()" classname="TemplateTest" time="0.007"/>
+  <system-out><![CDATA[Enter name of abstract class
+Enter the number of abstract functions
+Enter the number of functions
+Enter the amount of absolute processes
+Enter the amount of functions in absolute process 1
+Enter the amount of functions in absolute process 2
+Enter the amount of functions in absolute process 3
+Enter the amount of sub classes
+Enter name of class
+Enter name of class
+Enter name of class
+22:59:42.538 [Test worker] INFO  MyConstants - **ManualCar** directory successfully made
+22:59:42.539 [Test worker] INFO  Template - Template parameters acquired successfully
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

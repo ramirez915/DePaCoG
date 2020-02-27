@@ -119,4 +119,9 @@ public class Template extends DesignPatternObj {
             this.subClassList.add(subClass);
         }
     }
+
+    public String getMainAbstractClassName(){ return this.mainAbstractClassName;}
+    public int getTotalAbstractFunctions(){return this.totalAbstractFunctions;}
+    public int[] getFunctionsInEachProcess(){return this.functionsInEachProcess;}
+    public int getTotalAbsoluteProcesses(){return this.totalAbsoluteProcesses;}
 }

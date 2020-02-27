@@ -136,4 +136,9 @@ public class FactoryMethod extends DesignPatternObj{
         // from here on out all that remains are the names of the sub classes
         this.namesStartIndex = index + 2;
     }
+
+    public String getMainAbstractClassName(){ return this.mainAbstractClassName;}
+    public int getTotalAbstractMethods(){return this.totalAbstractMethods;}
+    public int getTotalRegularMethods(){return this.totalRegularMethods;}
+    public String[] getVariableTypes(){return this.variableTypes;}
 }

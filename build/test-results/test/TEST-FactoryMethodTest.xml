@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="FactoryMethodTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2020-02-27T04:59:42" hostname="LenovoAngle" time="0.07">
+  <properties/>
+  <testcase name="factoryMethodParsingTest()" classname="FactoryMethodTest" time="0.015"/>
+  <testcase name="subClassesTest()" classname="FactoryMethodTest" time="0.053"/>
+  <system-out><![CDATA[Enter name of abstract class
+Enter the amount of variables
+Enter the variable type
+Enter the variable type
+Enter the number of abstract functions
+Enter the number of functions
+Enter the amount of sub classes
+Enter name of class
+Enter name of class
+22:59:42.457 [Test worker] INFO  MyConstants - **GameConsole** directory successfully made
+22:59:42.457 [Test worker] INFO  Factory Method - Factory method parameters acquired successfully
+Enter name of abstract class
+Enter the amount of variables
+Enter the variable type
+Enter the variable type
+Enter the number of abstract functions
+Enter the number of functions
+Enter the amount of sub classes
+Enter name of class
+Enter name of class
+22:59:42.471 [Test worker] INFO  MyConstants - **GameConsole** directory successfully made
+22:59:42.472 [Test worker] INFO  Factory Method - Factory method parameters acquired successfully
+22:59:42.473 [Test worker] INFO  MyConstants - File GameConsole.java successfully created
+22:59:42.480 [Test worker] INFO  MyConstants - GameConsole.java file written successfully
+22:59:42.485 [Test worker] INFO  MyConstants - File GameBoy.java successfully created
+22:59:42.487 [Test worker] INFO  MyConstants - GameBoy.java file written successfully
+22:59:42.489 [Test worker] INFO  MyConstants - File N64.java successfully created
+22:59:42.500 [Test worker] INFO  MyConstants - N64.java file written successfully
+22:59:42.502 [Test worker] INFO  MyConstants - File GameConsoleFactory.java successfully created
+22:59:42.504 [Test worker] INFO  MyConstants - GameConsoleFactory.java file written successfully
+22:59:42.508 [Test worker] INFO  Factory Method - Factory method for GameConsole successfully created
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="AbstractFactoryTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2020-02-27T04:59:41" hostname="LenovoAngle" time="0.576">
+  <properties/>
+  <testcase name="parseNeededInputTest()" classname="AbstractFactoryTest" time="0.522"/>
+  <testcase name="subClassesTest()" classname="AbstractFactoryTest" time="0.052"/>
+  <system-out><![CDATA[Enter name of interface
+Enter the number of functions
+Enter the amount of sub classes
+Enter name of class
+Enter name of class
+Enter name of class
+22:59:42.354 [Test worker] INFO  MyConstants - **Car** directory successfully made
+22:59:42.358 [Test worker] INFO  Abstract Factory - Abstract factory parameters acquired successfully
+Enter name of interface
+Enter the number of functions
+Enter the amount of sub classes
+Enter name of class
+Enter name of class
+Enter name of class
+22:59:42.376 [Test worker] INFO  MyConstants - **Car** directory successfully made
+22:59:42.376 [Test worker] INFO  Abstract Factory - Abstract factory parameters acquired successfully
+22:59:42.377 [Test worker] INFO  MyConstants - File Car.java successfully created
+22:59:42.380 [Test worker] INFO  MyConstants - Car.java file written successfully
+22:59:42.381 [Test worker] INFO  MyConstants - File Honda.java successfully created
+22:59:42.383 [Test worker] INFO  MyConstants - Honda.java file written successfully
+22:59:42.384 [Test worker] INFO  MyConstants - File Nissan.java successfully created
+22:59:42.387 [Test worker] INFO  MyConstants - Nissan.java file written successfully
+22:59:42.389 [Test worker] INFO  MyConstants - File Ford.java successfully created
+22:59:42.396 [Test worker] INFO  MyConstants - Ford.java file written successfully
+22:59:42.397 [Test worker] INFO  MyConstants - File CarAbstractFactory.java successfully created
+22:59:42.401 [Test worker] INFO  MyConstants - CarAbstractFactory.java file written successfully
+22:59:42.403 [Test worker] INFO  MyConstants - File HondaFactory.java successfully created
+22:59:42.405 [Test worker] INFO  MyConstants - HondaFactory.java file written successfully
+22:59:42.407 [Test worker] INFO  MyConstants - File NissanFactory.java successfully created
+22:59:42.409 [Test worker] INFO  MyConstants - NissanFactory.java file written successfully
+22:59:42.411 [Test worker] INFO  MyConstants - File FordFactory.java successfully created
+22:59:42.413 [Test worker] INFO  MyConstants - FordFactory.java file written successfully
+22:59:42.414 [Test worker] INFO  MyConstants - File CarFactory.java successfully created
+22:59:42.416 [Test worker] INFO  MyConstants - CarFactory.java file written successfully
+22:59:42.416 [Test worker] INFO  Abstract Factory - Abstract factory for Car created successfully
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

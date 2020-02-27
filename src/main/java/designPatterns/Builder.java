@@ -136,4 +136,10 @@ public class Builder extends DesignPatternObj{
             index++;
         }
     }
+
+    public String getMainClassName(){ return this.mainClassName;}
+    public int getMandatoryAttributeAmount(){ return this.mandatoryAttributeAmount;}
+    public int getOptionalAttributeAmount(){ return this.optionalAttributeAmount;}
+    public String[] getMandatoryAttributeTypes(){ return this.mandatoryAttributeTypes;}
+    public String[] getOptionalAttributeTypes(){ return this.optionalAttributeTypes;}
 }

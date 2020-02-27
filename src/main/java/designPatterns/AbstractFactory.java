@@ -20,20 +20,20 @@ public class AbstractFactory extends DesignPatternObj{
     private int totalFuncs;
     private String abstFactoryName;
     private String abstFactoryMethodName;
-    private ArrayList<String> abstractFactoryParams;
     final static Logger logger = LoggerFactory.getLogger("Abstract Factory");
 
     // get the information for the super class and sub classes
     public AbstractFactory(){
         // order of params: main interface, function amount, amount of subclasses and names of subclasses
-        abstractFactoryParams = Tools.getParamsForPattern("abstract factory");
-        parseDesignPatternParams(abstractFactoryParams);
+        this.desPatParams = Tools.getParamsForPattern("abstract factory");
+        parseDesignPatternParams(this.desPatParams);
         // make the directory
         MyConstants.createDir(this.mainInterfaceName);
 
         // to have a name for the create function and abstract factory
         this.abstFactoryName = mainInterfaceName+"AbstractFactory";
         this.abstFactoryMethodName = "create"+ mainInterfaceName;
+        this.subClassList = new ArrayList<>();
         logger.info("Abstract factory parameters acquired successfully");
     }
 
@@ -66,10 +66,10 @@ public class AbstractFactory extends DesignPatternObj{
      */
     private void createFactorySubclasses(){
         String name = "";
-        // 2 because of the position of the names starts at 2 in the abstractFactoryParams list
-        for(int i = 2; i < abstractFactoryParams.size(); i++){
+        // 2 because of the position of the names starts at 2 in the design pattern params list
+        for(int i = 2; i < this.desPatParams.size(); i++){
             ArrayList<String> subClassParams = new ArrayList<>();
-            name = abstractFactoryParams.get(i);
+            name = this.desPatParams.get(i);
             Container subClass = new Container("regular class",name,mainInterfaceName,totalFuncs);
             subClass.setImplement(true);
             subClass.setDirName(mainInterfaceName);
@@ -84,6 +84,7 @@ public class AbstractFactory extends DesignPatternObj{
             subClassParams.add(subClass.name);
             subClass.text += MyConstants.ConstructorSig;
             subClass.formatTextTest(subClassParams);
+            this.subClassList.add(subClass);
 
             MyConstants.createFile(subClass);
         }
@@ -111,15 +112,15 @@ public class AbstractFactory extends DesignPatternObj{
     and implement the factory interface
      */
     private void createFactoryForConcreteClasses(){
-        // 2 because of the position of the names starts at 2 in the abstractFactoryParams list
-        for(int i = 2; i < abstractFactoryParams.size(); i++){
-            Container subFactory = new Container("regular class",abstractFactoryParams.get(i) + "Factory",abstFactoryName,1);
+        // 2 because of the position of the names starts at 2 in the design pattern params list
+        for(int i = 2; i < this.desPatParams.size(); i++){
+            Container subFactory = new Container("regular class",this.desPatParams.get(i) + "Factory",abstFactoryName,1);
             subFactory.setImplement(true);
             subFactory.setDirName(mainInterfaceName);
 
             MyConstants.createContainerStub(subFactory);
             subFactory.text += String.format(MyConstants.OverrideFunctionWReturnAndNameSig,mainInterfaceName,abstFactoryMethodName);
-            subFactory.text += String.format(MyConstants.ReturnNewStub,abstractFactoryParams.get(i));
+            subFactory.text += String.format(MyConstants.ReturnNewStub,this.desPatParams.get(i));
             // now make constructor
             subFactory.text += String.format(MyConstants.ConstructorSig,subFactory.name);
             MyConstants.createFile(subFactory);
@@ -146,7 +147,10 @@ public class AbstractFactory extends DesignPatternObj{
 
     @Override
     public void parseDesignPatternParams(ArrayList<String> paramList) {
-        this.mainInterfaceName = abstractFactoryParams.get(0);
-        this.totalFuncs = Integer.parseInt(abstractFactoryParams.get(1));
+        this.mainInterfaceName = paramList.get(0);
+        this.totalFuncs = Integer.parseInt(paramList.get(1));
     }
+
+    public String getMainInterfaceName(){ return this.mainInterfaceName;}
+    public int getTotalFunctions(){ return this.totalFuncs;}
 }

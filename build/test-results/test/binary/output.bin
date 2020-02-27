@@ -1,0 +1,104 @@
+Enter name of interface
+Enter the number of functions
+!Enter the amount of sub classes
+Enter name of class
+Enter name of class
+Enter name of class
+T22:59:42.354 [Test worker] INFO  MyConstants - **Car** directory successfully made
+g22:59:42.358 [Test worker] INFO  Abstract Factory - Abstract factory parameters acquired successfully
+Enter name of interface
+Enter the number of functions
+!Enter the amount of sub classes
+Enter name of class
+Enter name of class
+Enter name of class
+T22:59:42.376 [Test worker] INFO  MyConstants - **Car** directory successfully made
+g22:59:42.376 [Test worker] INFO  Abstract Factory - Abstract factory parameters acquired successfully
+S22:59:42.377 [Test worker] INFO  MyConstants - File Car.java successfully created
+S22:59:42.380 [Test worker] INFO  MyConstants - Car.java file written successfully
+U22:59:42.381 [Test worker] INFO  MyConstants - File Honda.java successfully created
+U22:59:42.383 [Test worker] INFO  MyConstants - Honda.java file written successfully
+V22:59:42.384 [Test worker] INFO  MyConstants - File Nissan.java successfully created
+V22:59:42.387 [Test worker] INFO  MyConstants - Nissan.java file written successfully
+T22:59:42.389 [Test worker] INFO  MyConstants - File Ford.java successfully created
+T22:59:42.396 [Test worker] INFO  MyConstants - Ford.java file written successfully
+b22:59:42.397 [Test worker] INFO  MyConstants - File CarAbstractFactory.java successfully created
+b22:59:42.401 [Test worker] INFO  MyConstants - CarAbstractFactory.java file written successfully
+\22:59:42.403 [Test worker] INFO  MyConstants - File HondaFactory.java successfully created
+\22:59:42.405 [Test worker] INFO  MyConstants - HondaFactory.java file written successfully
+]22:59:42.407 [Test worker] INFO  MyConstants - File NissanFactory.java successfully created
+]22:59:42.409 [Test worker] INFO  MyConstants - NissanFactory.java file written successfully
+[22:59:42.411 [Test worker] INFO  MyConstants - File FordFactory.java successfully created
+[22:59:42.413 [Test worker] INFO  MyConstants - FordFactory.java file written successfully
+Z22:59:42.414 [Test worker] INFO  MyConstants - File CarFactory.java successfully created
+Z22:59:42.416 [Test worker] INFO  MyConstants - CarFactory.java file written successfully
+c22:59:42.416 [Test worker] INFO  Abstract Factory - Abstract factory for Car created successfully
+Enter name of class
+***Mandatory attributes***
+*Enter the amount of mandatory attributes
+***Optional attributes***
+)Enter the amount of optional attributes
+***Mandatory attributes***
+Enter the variable type
+Enter the variable type
+***Optional attributes***
+Enter the variable type
+V22:59:42.440 [Test worker] INFO  MyConstants - **Phone** directory successfully made
+U22:59:42.441 [Test worker] INFO  Builder - Builder parameters acquired successfully
+Enter name of abstract class
+Enter the amount of variables
+Enter the variable type
+Enter the variable type
+(Enter the number of abstract functions
+Enter the number of functions
+!Enter the amount of sub classes
+Enter name of class
+Enter name of class
+\22:59:42.457 [Test worker] INFO  MyConstants - **GameConsole** directory successfully made
+c22:59:42.457 [Test worker] INFO  Factory Method - Factory method parameters acquired successfully
+Enter name of abstract class
+Enter the amount of variables
+Enter the variable type
+Enter the variable type
+(Enter the number of abstract functions
+Enter the number of functions
+!Enter the amount of sub classes
+Enter name of class
+Enter name of class
+\22:59:42.471 [Test worker] INFO  MyConstants - **GameConsole** directory successfully made
+c22:59:42.472 [Test worker] INFO  Factory Method - Factory method parameters acquired successfully
+[22:59:42.473 [Test worker] INFO  MyConstants - File GameConsole.java successfully created
+[22:59:42.480 [Test worker] INFO  MyConstants - GameConsole.java file written successfully
+W22:59:42.485 [Test worker] INFO  MyConstants - File GameBoy.java successfully created
+W22:59:42.487 [Test worker] INFO  MyConstants - GameBoy.java file written successfully
+S22:59:42.489 [Test worker] INFO  MyConstants - File N64.java successfully created
+S22:59:42.500 [Test worker] INFO  MyConstants - N64.java file written successfully
+b22:59:42.502 [Test worker] INFO  MyConstants - File GameConsoleFactory.java successfully created
+b22:59:42.504 [Test worker] INFO  MyConstants - GameConsoleFactory.java file written successfully
+g22:59:42.508 [Test worker] INFO  Factory Method - Factory method for GameConsole successfully created
+
+	Enter name of abstract class
+
+	(Enter the number of abstract functions
+
+	Enter the number of functions
+
+	(Enter the amount of absolute processes
+
+	5Enter the amount of functions in absolute process 1
+
+	5Enter the amount of functions in absolute process 2
+
+	5Enter the amount of functions in absolute process 3
+
+	!Enter the amount of sub classes
+
+	Enter name of class
+
+	Enter name of class
+
+	Enter name of class
+
+	Z22:59:42.538 [Test worker] INFO  MyConstants - **ManualCar** directory successfully made
+
+	W22:59:42.539 [Test worker] INFO  Template - Template parameters acquired successfully
