@@ -6,11 +6,16 @@ plugins {
 
 group 'org.cs474'
 version '1.0-SNAPSHOT'
+mainClassName = 'DePaCoGMain'
 
 sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
+}
+
+run{
+    standardInput = System.in
 }
 
 test{

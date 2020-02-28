@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="BuilderTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-02-27T04:59:42" hostname="LenovoAngle" time="0.006">
+<testsuite name="BuilderTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-02-28T03:10:25" hostname="LenovoAngle" time="0.016">
   <properties/>
-  <testcase name="BuilderParsingTest()" classname="BuilderTest" time="0.006"/>
+  <testcase name="BuilderParsingTest()" classname="BuilderTest" time="0.016"/>
   <system-out><![CDATA[Enter name of class
 ***Mandatory attributes***
 Enter the amount of mandatory attributes
@@ -12,8 +12,8 @@ Enter the variable type
 Enter the variable type
 ***Optional attributes***
 Enter the variable type
-22:59:42.440 [Test worker] INFO  MyConstants - **Phone** directory successfully made
-22:59:42.441 [Test worker] INFO  Builder - Builder parameters acquired successfully
+21:10:25.804 [Test worker] INFO  MyConstants - **Phone** directory successfully made
+21:10:25.806 [Test worker] INFO  Builder - Builder parameters acquired successfully
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
